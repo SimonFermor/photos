@@ -1,1 +1,1 @@
-# photos
+Scripts and SQL for storing photo file details and generating html index pages
