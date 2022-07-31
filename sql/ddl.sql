@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `collections` (
   `start_at` date DEFAULT NULL,
   `end_at` date DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `created_at` datetime DEFAULT NULL,
   `server_file_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=70293 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `file_people` (
   `file_id` int(11) DEFAULT NULL,
   `person_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `folders` (
   `parent_folder_id` int(11) DEFAULT NULL,
   `owner_person_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=869 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `photo_info_to_transfer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(500) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=331 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
 
