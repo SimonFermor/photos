@@ -1,6 +1,8 @@
 <cfsetting requestTimeOut = "9000">
 
 <cfscript>
+    var bat_file_path = "c:\temp\mkdir_to_do.bat";
+
     qoptions = { result="result", datasource="recipes"};
 
     // Find folders for files where there are missing thumbnails
@@ -27,10 +29,11 @@
         limit 5000;",
         [], qoptions);
 
-    output_file = FileOpen("c:\temp\mkdir_to_do.bat", "write");
+    output_file = FileOpen("#bat_file_path#", "write");
     for (row in image_folders) {
         fileWriteLine(output_file, "mkdir I:#image_folders.folder_path#\thumbnails");
     }
     fileClose(output_file);
+
 </cfscript>
-Done
+Done - see file <cfoutput>#bat_file_path#</cfoutput>

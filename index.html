@@ -1,0 +1,43 @@
+Steps
+
+1. Create folder listing
+PowerShell command to generate folder:
+
+    Get-ChildItem -Path I:\Photos -Recurse|  Where-Object {$_.GetType().Name -Like "DirectoryInfo"} | %{$_.FullName} > "d:\Google Drive\folders.txt"
+
+2. Create file listing:
+PowerShell command
+
+    Get-ChildItem -Path I:\Photos -Recurse|  Where-Object {$_.GetType().Name -Like "FileInfo"} | %{$_.FullName} > "d:\Google Drive\files.txt"
+
+3. Import folders list
+
+<a href="import_folders.cfm">import_folders.cfm</a>
+
+4. Import files list
+
+<a href="import_files.cfm">import_files.cfm</a>
+
+5. Extract folder name from path and save in table:
+
+<a href="set_folder_names.cfm">set_folder_names.cfm</a>
+
+6. Extract file name from path and save in table:
+
+<a href="set_file_names.cfm">set_file_names.cfm</a>
+
+7. Write batch file for creating thumbnail folders:
+
+<a href="save_mkdir_to_do.cfm">save_mkdir_to_do.cfm</a>
+
+8. Write batch file for running Image Magick to create JPG thumbnails from HEIC files
+
+<a href="save_magick_to_do.cfm">save_magick_to_do.cfm</a>
+
+9. Write list of files for creating thumbnails using ColdFusion
+
+<a href="save_magick_to_do.cfm">save_magick_to_do.cfm</a>
+
+10. Create thumbnails using ColdFusion (non HEIC image files)
+
+<a href="create_new_thumbnails.cfm">create_new_thumbnails.cfm</a>
