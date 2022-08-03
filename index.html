@@ -1,48 +1,64 @@
-Steps
+<html>
+    <head>
+        <link rel="stylesheet" href="assets/styles/styles.css">
+    </head>
 
-1. Create folder listing
-PowerShell command to generate folder:
+    <body>
 
-    Get-ChildItem -Path I:\Photos -Recurse|  Where-Object {$_.GetType().Name -Like "DirectoryInfo"} | %{$_.FullName} > "d:\Google Drive\folders.txt"
+    <div>
+    <h2>Steps</h2>
 
-2. Create file listing:
-PowerShell command
+    <h4>1. Create folder listing</h4>
+    PowerShell command to generate folder:
 
-    Get-ChildItem -Path I:\Photos -Recurse|  Where-Object {$_.GetType().Name -Like "FileInfo"} | %{$_.FullName} > "d:\Google Drive\files.txt"
+        <pre>Get-ChildItem -Path I:\Photos -Recurse|  Where-Object {$_.GetType().Name -Like "DirectoryInfo"} | %{$_.FullName} > "d:\Google Drive\folders.txt"</pre>
 
-3. Import folders list
+    <h4>2. Create file listing</h4>
+    PowerShell command to generate files list:
 
-<a href="import_folders.cfm">import_folders.cfm</a>
+        <pre>Get-ChildItem -Path I:\Photos -Recurse|  Where-Object {$_.GetType().Name -Like "FileInfo"} | %{$_.FullName} > "d:\Google Drive\files.txt"</pre>
 
-4. Import files list
+    <h4>3. Import folders list</h4>
 
-<a href="import_files.cfm">import_files.cfm</a>
+    <a href="utility/import_folders.cfm">import_folders.cfm</a>
 
-5. Extract folder name from path and save in table:
+    <h4>4. Import files list</h4>
 
-<a href="set_folder_names.cfm">set_folder_names.cfm</a>
+    <a href="utility/import_files.cfm">import_files.cfm</a>
 
-6. Extract file name from path and save in table:
+    <h4>5. Extract folder name from path and save in table:</h4>
 
-<a href="set_file_names.cfm">set_file_names.cfm</a>
+    <a href="utility/set_folder_names.cfm">set_folder_names.cfm</a>
 
-7. Write batch file for creating thumbnail folders:
+    <h4>6. Extract file name from path and save in table:</h4>
 
-<a href="save_mkdir_to_do.cfm">save_mkdir_to_do.cfm</a>
+    <a href="utility/set_file_names.cfm">set_file_names.cfm</a>
 
-8. Write batch file for running Image Magick to create JPG thumbnails from HEIC files
+    <h4>7. Write batch file for creating thumbnail folders:</h4>
 
-<a href="save_magick_to_do.cfm">save_magick_to_do.cfm</a>
+    (creates file c:\temp\mkdir_to_do.bat)
 
-9. Write list of files for creating thumbnails using ColdFusion
+    <a href="utility/save_mkdir_to_do.cfm">save_mkdir_to_do.cfm</a>
 
-<a href="save_magick_to_do.cfm">save_magick_to_do.cfm</a>
+    <h4>8. Write batch file for running Image Magick to create JPG thumbnails from HEIC files</h4>
 
-10. Create thumbnails using ColdFusion (non HEIC image files)
+    (creates file c:\temp\magick_to_do.bat)
 
-<a href="create_new_thumbnails.cfm">create_new_thumbnails.cfm</a>
+    <a href="utility/save_magick_to_do.cfm">save_magick_to_do.cfm</a>
 
-11. Generate index files
+    <h4>9. Write list of files for creating thumbnails using ColdFusion</h4>
 
-<a href="utility.cfc?method=write_owner_index_pages&owner_name=simon">write_owner_index_pages()</a>
+    (creates file c:\temp\thumbnails_to_do.txt)
 
+    <a href="utility/save_file_thumbnails_to_do_list.cfm">save_file_thumbnails_to_do_list.cfm</a>
+
+    <h4>10. Create thumbnails using ColdFusion (non HEIC image files)</h4>
+
+    <a href="utility/create_new_thumbnails.cfm">create_new_thumbnails.cfm</a>
+
+    <h4>11. Generate index files</h4>
+
+    <a href="utility/utility.cfc?method=write_owner_index_pages&owner_name=Simon">write_owner_index_pages()</a>
+    </div>
+</body>
+</html>
