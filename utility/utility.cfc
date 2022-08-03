@@ -23,12 +23,15 @@ any function write_html_footer(required string file_path) {
 remote any function write_owner_index_pages(required string owner_name) {
     var file_path = "";
 
+    // Create file and write html header
     var main_index_path = "c:\temp\photos\site\#owner_name#\index.html";
     write_html_header(main_index_path);
 
+    // Open file for adding links
     main_index_file = FileOpen("#main_index_path#", "append");
     fileWriteLine(main_index_file, "<ul>");
 
+    // Find thumbnail folders for owner_name (only generate index page if there are thumbnails)
     qoptions = { result="result", datasource="recipes"};
     folders = queryexecute(
         "select distinct folder_id, folder_path
@@ -72,6 +75,7 @@ remote any function write_owner_index_pages(required string owner_name) {
         fileClose(main_index_file);
         write_html_footer(main_index_path);
         
+        return folders;
 }
 
 }

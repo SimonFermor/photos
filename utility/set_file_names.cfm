@@ -23,4 +23,13 @@
             [folder_path, filename, extension, row.id], qoptions);
     }
 </cfscript>
-Done
+
+<cfquery name="set_folder_ids" datasource="recipes">
+  UPDATE photos.files AS f1
+  INNER JOIN photos.folders AS f2
+  ON (f1.folder_path = f2.path)
+  SET f1.folder_id = f2.id
+  WHERE f1.folder_id IS NULL;
+</cfquery>
+
+Done - set name, extension, folder_path, folder_id
