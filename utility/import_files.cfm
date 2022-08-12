@@ -35,6 +35,7 @@
     fileClose(files);
 
     // Set folder ID for imported files
+    // If there are problems, check that folder ID is being set correctly
     query = queryexecute(
         "UPDATE photos.files_import AS f1
         INNER JOIN photos.folders AS f2
@@ -44,7 +45,7 @@
     )
 
     // Set create date time for file from import
-    // To be modified to import new files instead
+    // To do: modify to import new files instead
     query = queryexecute(
         "UPDATE photos.files AS f1
         INNER JOIN photos.files_import AS f2

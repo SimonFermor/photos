@@ -20,6 +20,35 @@ any function write_html_footer(required string file_path) {
     fileClose(html_file);
 }
 
+remote any function write_collection_pages() {
+    write_html_header("c:\temp\photos\site\collections\index.html");
+
+    qoptions =  { result="result", datasource="recipes"};
+
+    collection_id = "1";
+    
+    files = queryexecute(
+        "SELECT id, folder_path, name, extension
+        FROM photos.files
+        WHERE created_at > (SELECT start_at FROM photos.collections WHERE id = (?))
+        AND created_at < (SELECT end_at FROM photos.collections WHERE id = (?))
+        AND hide = 0;", 
+        [collection_id, collection_id], qoptions);
+
+    file_path = "c:\temp\photos\site\collections\" & collection_id & ".html";
+    write_html_header(file_path);
+    index_file = FileOpen("#file_path#", "append");
+    fileWriteLine(index_file, "            <ul class='gallery'>");
+
+    for (photo in files) {
+        parent_folder_path = replace(photo.folder_path, "\", "/", "All");
+        fileWriteLine(index_file, "            <li><a href='../../..#parent_folder_path#/#photo.name#.#photo.extension#' data-fancybox data-fancybox='gallery'>");
+        fileWriteLine(index_file, "                <img src='../../..#parent_folder_path#/thumbnails/#photo.name#.#photo.extension#'></a></li>");
+    }
+    write_html_footer(file_path);
+    return files;
+}
+
 remote any function write_owner_index_pages(required string owner_name) {
     var file_path = "";
 
