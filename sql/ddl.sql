@@ -16,6 +16,16 @@
 CREATE DATABASE IF NOT EXISTS `photos` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `photos`;
 
+-- Dumping structure for table photos.cameras
+CREATE TABLE IF NOT EXISTS `cameras` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `photographer_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+
 -- Dumping structure for table photos.collections
 CREATE TABLE IF NOT EXISTS `collections` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -45,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `collection_keywords` (
   `collection_id` int(11) DEFAULT NULL,
   `keyword_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -75,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `created_at` datetime DEFAULT NULL,
   `server_file_id` int(11) DEFAULT NULL,
   `hide` bit(1) NOT NULL DEFAULT b'0',
+  `camera_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `Folder ID File` (`folder_id`,`name`,`extension`)
 ) ENGINE=InnoDB AUTO_INCREMENT=82999 DEFAULT CHARSET=latin1;
@@ -132,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `keywords` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `keyword` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
