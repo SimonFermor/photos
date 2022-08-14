@@ -1,15 +1,17 @@
 <cfsetting requestTimeOut = "9000">
 Started at <cfoutput>#now()#</cfoutput>
 
+<cfinclude template="settings.inc">
+
 <cfscript>
     // File with list of files to create thumbnails
-    file_name = "C:\temp\thumbnails_to_do.txt";
+    to_do_file_path = "#settings.folder##settings.files.thumbnails_to_do#";
 
     // Log file for converted files
-    done_list = fileOpen("c:\temp\done_list.txt", "write");
+    done_list = fileOpen("#settings.folder##settings.files.done_list#", "write");
 
     // Loop through file and write image thumbnails if not already exists
-    cfloop(file="#file_name#", index="i", item="line") {
+    cfloop(file="#to_do_file_path#", index="i", item="line") {
         folder = listgetat(line, 1,",");
         filename = listgetat(line, 2,",");
         source_path = folder & '\' & filename;
@@ -26,4 +28,4 @@ Started at <cfoutput>#now()#</cfoutput>
 
     fileClose(done_list);
 </cfscript>
-Done
+Done - thumbnails created

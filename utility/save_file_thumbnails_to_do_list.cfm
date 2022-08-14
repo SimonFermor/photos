@@ -1,4 +1,5 @@
 <cfsetting requestTimeOut = "9000">
+<cfinclude template="settings.inc">
 
 <cfscript>
     qoptions = { result="result", datasource="recipes"};
@@ -27,10 +28,10 @@
         limit 5000;",
         [], qoptions);
 
-    output_file = FileOpen("c:\temp\thumbnails_to_do.txt", "write");
+    output_file = FileOpen("#settings.folder##settings.files.thumbnails_to_do#", "write");
     for (row in image_files) {
-        fileWriteLine(output_file, "I:#image_files.folder_path#,#image_files.name#.#image_files.extension#");
+        fileWriteLine(output_file, "#settings.drive##image_files.folder_path#,#image_files.name#.#image_files.extension#");
     }
     fileClose(output_file);
 </cfscript>
-Done
+Done - created thumbnails_to_do.txt

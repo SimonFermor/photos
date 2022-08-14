@@ -1,16 +1,20 @@
 <cfsetting requestTimeOut = "9000">
+<cfinclude template="settings.inc">
 
 <cfscript>
-    var bat_file_path = "c:\temp\mkdir_to_do.bat";
+    bat_file_path = "#settings.folder##settings.files.mkdir_to_do";
 
     qoptions = { result="result", datasource="recipes"};
 
     // Find folders for files where there are missing thumbnails
+
+    add thumbnail_folder_id
+
     image_folders = queryexecute(
         "SELECT DISTINCT `folder_path`
         FROM photos.files AS f1
         WHERE id NOT IN
-        
+        update this query
             (SELECT id
             FROM photos.files AS f
             
@@ -33,6 +37,7 @@
     for (row in image_folders) {
         fileWriteLine(output_file, "mkdir I:#image_folders.folder_path#\thumbnails");
     }
+    fileWriteLine(output_file, "pause");
     fileClose(output_file);
 
 </cfscript>

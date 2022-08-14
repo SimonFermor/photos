@@ -1,9 +1,10 @@
 <cfsetting requestTimeOut = "9000">
+<cfinclude template="settings.inc">
 
 <!--- Read each line in the server_files.txt file and add a record in the table server_files 
       Need to update if existing --->
 <cfscript>
-    files = FileOpen("c:\temp\server_files.txt", "read");
+    files = FileOpen("#settings.folder##settings.files.server_file_list#", "read");
 
     while (not fileiseof(files)) {
         line = FileReadLine(files);

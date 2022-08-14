@@ -1,4 +1,5 @@
 <cfsetting requestTimeOut = "9000">
+<cfinclude template="settings.inc">
 
 <cfscript>
     qoptions = { result="result", datasource="recipes"};
@@ -27,10 +28,11 @@
         limit 5000;",
         [], qoptions);
 
-    output_file = FileOpen("c:\temp\magick_to_do.bat", "write");
+    output_file = FileOpen("#settings.folder##settings.files.magick_to_do", "write");
     for (row in image_files) {
-        fileWriteLine(output_file, "magick I:#image_files.folder_path#\#image_files.name#.#image_files.extension# I:#image_files.folder_path#\#image_files.name#.jpg");
+        fileWriteLine(output_file, "magick #drive##image_files.folder_path#\#image_files.name#.#image_files.extension# #drive##image_files.folder_path#\#image_files.name#.jpg");
     }
+    fileWriteLine(output_file, "pause");
     fileClose(output_file);
 </cfscript>
-Done
+Done - completed writing magick_to_do.bat

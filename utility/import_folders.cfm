@@ -1,5 +1,7 @@
+<cfinclude template="settings.inc">
+
 <cfscript>
-    folders = FileOpen("c:\temp\folders.txt", "read");
+    folders = FileOpen("#settings.folder##settings.files.folders_list#", "read");
 
     while (not fileiseof(folders)) {
         line = FileReadLine(folders);

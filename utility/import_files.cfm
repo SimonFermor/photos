@@ -1,10 +1,11 @@
 <cfsetting requestTimeOut = "9000">
+<cfinclude template="settings.inc">
 
 <!--- 
     Read each line in the files.txt file and add a record in the table files_import 
 --->
 <cfscript>
-    files = FileOpen("c:\temp\files.txt", "read");
+    files = FileOpen("#settings.folder##settings.files.files_list#", "read");
     counter = 0;
     qoptions = { result="result", datasource="recipes"};
     queryexecute("truncate table photos.files_import;", [], qoptions);
@@ -42,17 +43,41 @@
         ON (f1.folder_path = f2.path)
         SET f1.folder_id = f2.id
         WHERE f1.folder_id IS NULL;", [], qoptions
-    )
+    );
 
     // Set create date time for file from import
-    // To do: modify to import new files instead
     query = queryexecute(
         "UPDATE photos.files AS f1
         INNER JOIN photos.files_import AS f2
         ON (f1.folder_id = f2.folder_id and f1.name = f2.name and f1.extension = f2.extension)
         SET f1.created_at = f2.created_at
         WHERE f1.created_at IS NULL;", [], qoptions
-    )
+    );
+
+    // Import new files
+    query = queryexecute(
+        "INSERT INTO photos.files
+        (path, folder_path, NAME, extension, folder_id, created_at)
+        
+        SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at
+        FROM photos.files_import AS i
+        left JOIN photos.files AS f
+        ON i.folder_id = f.folder_id
+        AND i.name = f.name
+        AND i.extension = f.extension
+        WHERE f.name IS NULL;", [], qoptions
+    );
+
+    // Check for files not added
+    SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at, f.*
+FROM photos.files_import AS i
+left JOIN photos.files AS f
+ON i.folder_id = f.folder_id
+AND i.name = f.name
+AND i.extension = f.extension
+WHERE f.name IS NULL;
+
+
 </cfscript>
 
 <!--- Show the number of rows in the table --->
