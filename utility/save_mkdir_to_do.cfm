@@ -2,19 +2,20 @@
 <cfinclude template="settings.inc">
 
 <cfscript>
-    bat_file_path = "#settings.folder##settings.files.mkdir_to_do";
-
-    qoptions = { result="result", datasource="recipes"};
+    bat_file_path = "#settings.folder##settings.files.mkdir_to_do#";
 
     // Find folders for files where there are missing thumbnails
 
-    add thumbnail_folder_id
+    set thumbnail_folder_id in folders table
+    then check for folders with files and no thumbnail folder
 
     image_folders = queryexecute(
         "SELECT DISTINCT `folder_path`
         FROM photos.files AS f1
         WHERE id NOT IN
-        update this query
+
+        *** update this query
+
             (SELECT id
             FROM photos.files AS f
             
@@ -34,9 +35,11 @@
         [], qoptions);
 
     output_file = FileOpen("#bat_file_path#", "write");
+
     for (row in image_folders) {
         fileWriteLine(output_file, "mkdir I:#image_folders.folder_path#\thumbnails");
     }
+
     fileWriteLine(output_file, "pause");
     fileClose(output_file);
 

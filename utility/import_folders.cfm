@@ -5,18 +5,20 @@
 
     while (not fileiseof(folders)) {
         line = FileReadLine(folders);
-        //WriteOutput("#line#");
-        path = right(line, len(line) -2);
+        if (len(line) gt 2 ) {
+            path = right(line, len(line) -2);
 
-        qoptions = { result="result", datasource="recipes"};
-        query = queryexecute(
-            "insert into photos.folders 
-            (path) 
-            select (?) from dual
-            where not exists (select id from photos.folders where path = (?) limit 1);",
-            [path, path], qoptions);
+            qoptions = { result="result", datasource="recipes"};
+            query = queryexecute(
+                "insert into photos.folders 
+                (path) 
+                select (?) from dual
+                where not exists (select id from photos.folders where path = (?) limit 1);",
+                [path, path], qoptions);
+        }
         }
     fileClose(folders);
+
 </cfscript>
 
 <!--- How many folders? --->

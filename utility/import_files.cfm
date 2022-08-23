@@ -69,13 +69,15 @@
     );
 
     // Check for files not added
-    SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at, f.*
-FROM photos.files_import AS i
-left JOIN photos.files AS f
-ON i.folder_id = f.folder_id
-AND i.name = f.name
-AND i.extension = f.extension
-WHERE f.name IS NULL;
+    query = queryexecute(
+        "SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at, 
+            f.*
+        FROM photos.files_import AS i
+        left JOIN photos.files AS f
+        ON i.folder_id = f.folder_id
+        AND i.name = f.name
+        AND i.extension = f.extension
+        WHERE f.name IS NULL;", [], qoptions);
 
 
 </cfscript>

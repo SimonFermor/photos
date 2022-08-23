@@ -1,4 +1,8 @@
-var settings = {
+<cfscript>
+
+qoptions = { result="result", datasource="recipes"};
+
+settings = {
     "folder": "c:\temp\",
     "files": {
         "thumbnails_to_do": "thumbnails_to_do.txt",
@@ -10,4 +14,5 @@ var settings = {
         "server_file_list": "server_files.txt"
     },
     "drive": "I:"
-}
+};
+</cfscript>
