@@ -1,5 +1,7 @@
 <!--- Extract and save folder name from full path --->
 
+<cfinclude template="settings.inc">
+
 <!--- Find folders where name has not been set --->
 <cfquery name="folders" datasource="recipes">
   select id, path
@@ -8,7 +10,7 @@
 </cfquery>
 
 <cfscript>
-  qoptions = { result="result", datasource="recipes"};
+  // qoptions = { result="result", datasource="recipes"};
   // https://stackoverflow.com/questions/9363145/regex-for-extracting-filename-from-path#9367263
   //    writeDump ("(/(\w?\:?\\?[\w\-_\\]*\\+)([\w-_]+)(\.[\w-_]+)/gi)", set_names.path[3]);
   //    test = REMatch("(^\\(.+)*\\(.+)$)", "#folders.path[3]#");
@@ -29,6 +31,7 @@
   query = queryexecute(
     "INSERT INTO photos.folders
     (path)
+
     SELECT distinct LEFT(f2.path, LENGTH(f2.path) - LENGTH(f2.NAME) - 1) AS path
     FROM photos.folders AS f2
 
@@ -41,18 +44,24 @@
   // Set parent folder ID
   query =queryexecute(
     "UPDATE photos.folders AS f1
+
     inner JOIN photos.folders AS f2
     ON f2.path = LEFT(f1.path, LENGTH(f1.path) - LENGTH(f1.NAME) - 1)
+
     SET f1.parent_folder_id = f2.id
+
     WHERE f1.parent_folder_id IS NULL;",
     [], qoptions);
 
   // Set thumbnail folder ID
   query = queryexecute(
     "UPDATE photos.folders AS f1
+
     inner JOIN photos.folders AS f2
     ON f2.path = CONCAT(f1.path, '\\thumbnails')
+
     SET f1.thumbnail_folder_id = f2.id
+    
     WHERE f1.thumbnail_folder_id IS NULL;",
     [], qoptions);
 

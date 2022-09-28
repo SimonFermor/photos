@@ -7,7 +7,8 @@
 <cfscript>
     files = FileOpen("#settings.folder##settings.files.files_list#", "read");
     counter = 0;
-    qoptions = { result="result", datasource="recipes"};
+    //qoptions = { result="result", datasource="recipes"};
+    // Truncate table used for import
     queryexecute("truncate table photos.files_import;", [], qoptions);
 
     while (not fileiseof(files)) {
@@ -33,6 +34,7 @@
             }
         }
     }
+
     fileClose(files);
 
     // Set folder ID for imported files
@@ -54,17 +56,19 @@
         WHERE f1.created_at IS NULL;", [], qoptions
     );
 
-    // Import new files
+    // Import new files - where file is in file_import table and not in photos.files table
     query = queryexecute(
         "INSERT INTO photos.files
         (path, folder_path, NAME, extension, folder_id, created_at)
         
         SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at
         FROM photos.files_import AS i
+
         left JOIN photos.files AS f
         ON i.folder_id = f.folder_id
         AND i.name = f.name
         AND i.extension = f.extension
+
         WHERE f.name IS NULL;", [], qoptions
     );
 
@@ -73,12 +77,13 @@
         "SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at, 
             f.*
         FROM photos.files_import AS i
+
         left JOIN photos.files AS f
         ON i.folder_id = f.folder_id
         AND i.name = f.name
         AND i.extension = f.extension
+        
         WHERE f.name IS NULL;", [], qoptions);
-
 
 </cfscript>
 

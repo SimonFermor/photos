@@ -15,11 +15,13 @@
             
             INNER JOIN 
             
-            (SELECT LEFT(folder_path, LENGTH(folder_path) - 11) AS folder_path, NAME, extension
-            from photos.files as f
-            where f.folder_path like '%thumbnails') AS t
+            (SELECT f2.parent_folder_id, f1.NAME, f1.extension
+            from photos.files as f1
+            inner join photos.folders as f2
+            on f1.folder_id = f2.id
+            where f1.folder_path like '%thumbnails') AS t
             
-            ON f.folder_path = t.folder_path
+            ON f.folder_id = t.parent_folder_id
             AND f.name = t.name
             AND f.extension = t.extension)
         
@@ -28,9 +30,9 @@
         limit 5000;",
         [], qoptions);
 
-    output_file = FileOpen("#settings.folder##settings.files.magick_to_do", "write");
+    output_file = FileOpen("#settings.folder##settings.files.magick_to_do#", "write");
     for (row in image_files) {
-        fileWriteLine(output_file, "magick #drive##image_files.folder_path#\#image_files.name#.#image_files.extension# #drive##image_files.folder_path#\#image_files.name#.jpg");
+        fileWriteLine(output_file, "magick #settings.drive##image_files.folder_path#\#image_files.name#.#image_files.extension# #settings.drive##image_files.folder_path#\#image_files.name#.jpg");
     }
     fileWriteLine(output_file, "pause");
     fileClose(output_file);

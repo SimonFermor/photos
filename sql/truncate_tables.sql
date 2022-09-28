@@ -1,2 +1,2 @@
-TRUNCATE TABLE files.folders;
-TRUNCATE TABLE files.files;
+TRUNCATE TABLE photos.folders;
+TRUNCATE TABLE photos.files;

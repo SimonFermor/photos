@@ -15,15 +15,19 @@
             
             INNER JOIN 
             
-            (SELECT LEFT(folder_path, LENGTH(folder_path) - 11) AS folder_path, NAME, extension
-            from photos.files as f
-            where f.folder_path like '%thumbnails') AS t
+            (SELECT f2.parent_folder_id, f1.NAME, f1.extension
+            from photos.files as f1
+            inner join photos.folders as f2
+            on f1.folder_id = f2.id
+            where f1.folder_path like '%thumbnails') AS t
             
-            ON f.folder_path = t.folder_path
+            ON f.folder_id = t.parent_folder_id
             AND f.name = t.name
             AND f.extension = t.extension)
         
         AND f1.folder_path NOT LIKE '%thumbnails'
+        and f1.folder_path not like '% %'
+        and f1.name not like '% %'
         AND f1.extension IN ('PNG', 'TIF', 'JPG', 'JPEG')
         limit 5000;",
         [], qoptions);
