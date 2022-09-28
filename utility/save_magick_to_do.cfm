@@ -6,27 +6,25 @@
 
     // Need to deal with other formats.  HEIC etc.
     image_files = queryexecute(
-        "SELECT `folder_path`, `name`, `extension`
-        FROM photos.files AS f1
-        WHERE id NOT IN
-        
-            (SELECT id
-            FROM photos.files AS f
-            
-            INNER JOIN 
-            
-            (SELECT f2.parent_folder_id, f1.NAME, f1.extension
-            from photos.files as f1
-            inner join photos.folders as f2
-            on f1.folder_id = f2.id
-            where f1.folder_path like '%thumbnails') AS t
-            
-            ON f.folder_id = t.parent_folder_id
-            AND f.name = t.name
-            AND f.extension = t.extension)
-        
-        AND f1.folder_path NOT LIKE '%thumbnails'
-        AND f1.extension IN ('HEIC')
+        "SELECT f.folder_path, f.name, f.extension
+        FROM photos.files AS f
+        left outer join
+
+        (SELECT f2.parent_folder_id, f1.name, 'HEIC' as extension
+        from photos.files as f1
+
+        inner join photos.folders as f2
+        on f1.folder_id = f2.id
+
+        where f1.folder_path like '%thumbnails'
+        and f1.extension = 'JPG') AS a
+
+        ON f.folder_id = a.parent_folder_id
+        AND f.name = a.name
+        AND f.extension = a.extension
+
+        where a.parent_folder_id is null
+        and f.extension = 'HEIC'
         limit 5000;",
         [], qoptions);
 
