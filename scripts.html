@@ -9,7 +9,7 @@
     <h2>Steps</h2>
 
     <h4>1. Create folder listing</h4>
-    PowerShell command to generate folder:
+    PowerShell command to generate list of folders:
 
         <pre>Get-ChildItem -Path I:\Photos -Recurse|  Where-Object {$_.GetType().Name -Like "DirectoryInfo"} | %{$_.FullName} > "d:\Google Drive\folders.txt"</pre>
 

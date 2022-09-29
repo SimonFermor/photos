@@ -17,7 +17,7 @@
         on f1.folder_id = f2.id
 
         where f1.folder_path like '%thumbnails'
-        and f1.extension = 'JPG') AS a
+        and (f1.extension = 'JPG' or f1.extension = 'jpg')) AS a
 
         ON f.folder_id = a.parent_folder_id
         AND f.name = a.name

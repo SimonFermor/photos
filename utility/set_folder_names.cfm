@@ -10,10 +10,11 @@
 </cfquery>
 
 <cfscript>
-  // qoptions = { result="result", datasource="recipes"};
   // https://stackoverflow.com/questions/9363145/regex-for-extracting-filename-from-path#9367263
   //    writeDump ("(/(\w?\:?\\?[\w\-_\\]*\\+)([\w-_]+)(\.[\w-_]+)/gi)", set_names.path[3]);
   //    test = REMatch("(^\\(.+)*\\(.+)$)", "#folders.path[3]#");
+
+  // For each folder, set the name
   for (row in folders) {
     // Find the last part of the path, string after last \
     folder_name = REMatch("([^\\]+)$", "#row.path#");
@@ -66,4 +67,5 @@
     [], qoptions);
 
 </cfscript>
+
 Done - set folder names and inserted parent folders
