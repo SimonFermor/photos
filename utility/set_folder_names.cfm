@@ -21,10 +21,10 @@
 
     query = queryexecute(
       "update photos.folders 
-      set `name` = (?) 
-      where id = (?)",
+      set name = (:folder_name) 
+      where id = (:id)",
       // Folder name is first (and only) match
-      [folder_name[1], row.id], qoptions);
+      { folder_name={value=folder_name[1]}, id={value=row.id} }, qoptions);
   }
 
   // Insert parent folder if not found
@@ -33,16 +33,16 @@
     "INSERT INTO photos.folders
     (path)
 
-    SELECT distinct LEFT(f2.path, LENGTH(f2.path) - LENGTH(f2.NAME) - 1) AS path
+    SELECT distinct LEFT(f2.path, LENGTH(f2.path) - LENGTH(f2.name) - 1) AS path
     FROM photos.folders AS f2
 
     LEFT JOIN photos.folders AS f1
-    ON f1.path = LEFT(f2.path, LENGTH(f2.path) - LENGTH(f2.NAME) - 1)
+    ON f1.path = LEFT(f2.path, LENGTH(f2.path) - LENGTH(f2.name) - 1)
 
     WHERE f1.path IS NULL;",
     [], qoptions);
 
-  // Set parent folder ID
+  // Set parent folder ID for folder
   query =queryexecute(
     "UPDATE photos.folders AS f1
 

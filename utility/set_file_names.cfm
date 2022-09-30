@@ -21,11 +21,12 @@ Files where folder_path is null: <cfoutput>#files.recordCount#</cfoutput>
 
         query = queryexecute(
           "update photos.files 
-          set `folder_path` = (?),
-            `name` = (?), 
-            `extension` = (?)
-          where id = (?);",
-            [folder_path, filename, extension, row.id], qoptions);
+          set folder_path = :folder_path,
+            name = :filename, 
+            extension = :extension
+          where id = :row_id;",
+          {folder_path={value=folder_path}, filename={value=filename}, 
+          extension={value=extension}, row_id={value=row.id}}, qoptions);
     }
 </cfscript>
 

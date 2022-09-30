@@ -18,13 +18,13 @@
 
         <pre>Get-ChildItem -Path I:\Photos -Recurse|  Where-Object {$_.GetType().Name -Like "FileInfo"} | %{$_.FullName} > "d:\Google Drive\files.txt"</pre>
 
-    <h4>3. Import folders list</h4>
+    <h4>3. Import folders list - inserting new folders</h4>
     <a href="utility/import_folders.cfm">import_folders.cfm</a>
 
-    <h4>4. Import files list</h4>
+    <h4>4. Import files list - inserting new files</h4>
     <a href="utility/import_files.cfm">import_files.cfm</a>
 
-    <h4>5. Extract folder name from path and save in table:</h4>
+    <h4>5. Extract folder name from path and save in table, also set parent and thumbnail folders:</h4>
     <a href="utility/set_folder_names.cfm">set_folder_names.cfm</a>
 
     <h4>6. Extract file name from path and save in table:</h4>

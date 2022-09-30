@@ -6,35 +6,41 @@
 
     // Need to deal with other formats.  HEIC etc.
     image_files = queryexecute(
-        "SELECT `folder_path`, `name`, `extension`
+        "SELECT folder_path, name, extension
         FROM photos.files AS f1
         WHERE id NOT IN
         
-            (SELECT id
-            FROM photos.files AS f
+        -- Files with corresponding file in the thumbnails folder            
+        (SELECT id
+        FROM photos.files AS f
             
-            INNER JOIN 
-            
-            (SELECT f2.parent_folder_id, f1.NAME, f1.extension
+        INNER JOIN 
+            -- Thumbnail files with parent folder id
+            (SELECT f2.parent_folder_id as folder_id, f1.NAME, f1.extension
             from photos.files as f1
             inner join photos.folders as f2
             on f1.folder_id = f2.id
             where f1.folder_path like '%thumbnails') AS t
             
-            ON f.folder_id = t.parent_folder_id
-            AND f.name = t.name
-            AND f.extension = t.extension)
+        ON f.folder_id = t.folder_id
+        AND f.name = t.name
+        AND f.extension = t.extension)
         
         AND f1.folder_path NOT LIKE '%thumbnails'
+
+        -- Ignore files with path or filename containing space
         and f1.folder_path not like '% %'
         and f1.name not like '% %'
-        AND f1.extension IN ('PNG', 'TIF', 'JPG', 'JPEG')
+
+        -- Only image files
+        AND f1.extension IN ('PNG', 'TIF', 'JPG', 'JPEG', 'jpg')
         limit 5000;",
         [], qoptions);
 
     output_file = FileOpen("#settings.folder##settings.files.thumbnails_to_do#", "write");
     for (row in image_files) {
-        fileWriteLine(output_file, "#settings.drive##image_files.folder_path#,#image_files.name#.#image_files.extension#");
+        base_path = "#settings.drive##image_files.folder_path#";
+        fileWriteLine(output_file, "#base_path#,#image_files.name#.#image_files.extension#");
     }
     fileClose(output_file);
 </cfscript>

@@ -11,11 +11,12 @@
     // Truncate table used for import
     queryexecute("truncate table photos.files_import;", [], qoptions);
 
+    // Import all files into files_import table
     while (not fileiseof(files)) {
         counter += 1;
         line = FileReadLine(files);
-        //WriteOutput("#line#<br>");
-        if (right(line, 4) != 'thumbnails') {
+        // WriteOutput("#line#<br>");  // Debug
+        if (right(line, 10) != 'thumbnails') {
             extension = trim(mid(line, 63, 10));
             name = trim(left(line, 60));
             created_at = trim(mid(line, 73, 20));
@@ -23,14 +24,21 @@
             //WriteOutput("name: #name#, extension: #extension#, creation_time: #created_at#, path: #path#<br />");
 
             if (name neq "Name" and name neq "----" and len(extension) gt 2) {
+                // Remove extension from name
                 name = left(name, len(name) - len(extension) - 1);
+
+                // Remove leading drive letter and filename from end
                 folder_path = mid(path, 3, len(path) - len(name) - len(extension) - 4);
+
+                // Insert new file details
                 query = queryexecute(
                     "insert into photos.files_import
                     (path, folder_path, name, extension, created_at)
                     values
-                    (?, ?, ?, ?, ?);",
-                    [path, folder_path, name, extension, created_at], qoptions);
+                    (:path, :folder_path, :name, :extension, :created_at);",
+                    { path={value=path}, folder_path={value=folder_path}, 
+                      name={value=name}, extension={value=extension}, 
+                      created_at={value=created_at}}, qoptions);
             }
         }
     }
@@ -47,7 +55,8 @@
         WHERE f1.folder_id IS NULL;", [], qoptions
     );
 
-    // Set create date time for file from import
+    // Set create date time for file from import - for files previously imported
+    // This fix will not be required in future
     query = queryexecute(
         "UPDATE photos.files AS f1
         INNER JOIN photos.files_import AS f2
@@ -59,7 +68,7 @@
     // Import new files - where file is in file_import table and not in photos.files table
     query = queryexecute(
         "INSERT INTO photos.files
-        (path, folder_path, NAME, extension, folder_id, created_at)
+        (path, folder_path, name, extension, folder_id, created_at)
         
         SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at
         FROM photos.files_import AS i
@@ -72,10 +81,10 @@
         WHERE f.name IS NULL;", [], qoptions
     );
 
-    // Check for files not added
-    query = queryexecute(
+    // Check for files not added - for example folder paths with a space
+    not_added = queryexecute(
         "SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at, 
-            f.*
+            -- f.*
         FROM photos.files_import AS i
 
         left JOIN photos.files AS f
@@ -86,6 +95,9 @@
         WHERE f.name IS NULL;", [], qoptions);
 
 </cfscript>
+
+Files not imported correctly:
+<cfdump var="#not_added#">
 
 <!--- Show the number of rows in the table --->
 <cfquery name="import_count" datasource="recipes">
