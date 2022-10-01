@@ -83,7 +83,7 @@
 
     // Check for files not added - for example folder paths with a space
     not_added = queryexecute(
-        "SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at, 
+        "SELECT i.path, i.folder_path, i.name, i.extension, i.folder_id, i.created_at
             -- f.*
         FROM photos.files_import AS i
 
