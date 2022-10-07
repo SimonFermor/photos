@@ -13,6 +13,6 @@ settings = {
         "mkdir_to_do": "mk_dir_to_do.bat",
         "server_file_list": "server_files.txt"
     },
-    "drive": "I:"
+    "root_folder": "I:\Photos"
 };
 </cfscript>

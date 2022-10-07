@@ -39,7 +39,7 @@
 
     output_file = FileOpen("#settings.folder##settings.files.thumbnails_to_do#", "write");
     for (row in image_files) {
-        base_path = "#settings.drive##image_files.folder_path#";
+        base_path = "#settings.root_folder##image_files.folder_path#";
         fileWriteLine(output_file, "#base_path#,#image_files.name#.#image_files.extension#");
     }
     fileClose(output_file);
