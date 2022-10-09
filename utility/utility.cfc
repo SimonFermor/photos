@@ -67,7 +67,8 @@ remote any function write_collection_pages(collection_id) {
         fileWriteLine(index_file, "            <li><a href='../../..#parent_folder_path#/#photo.name#.#photo.extension#' data-fancybox data-fancybox='gallery'>");
         fileWriteLine(index_file, "                <img src='../../..#parent_folder_path#/thumbnails/#photo.name#.#photo.extension#'></a></li>");
     }
-
+    fileWriteLine(index_file, '<li></li>');
+    
     // Finish the file
     write_html_footer(file_path);
 

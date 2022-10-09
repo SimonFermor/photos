@@ -2,7 +2,7 @@ body{
     font-family: sans-serif;
 }
 
-.gallery {
+.gallery ul {
     display: flex;
     flex-wrap: wrap;
     margin: 2vmin;
@@ -39,7 +39,7 @@ body{
 }
 
 @media (max-aspect-ratio: 1/1) and (max-width: 480px) {
-.gallery {
+.gallery ul {
     flex-direction: row;
     }
 
