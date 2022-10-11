@@ -3,7 +3,7 @@
 qoptions = { result="result", datasource="recipes"};
 
 settings = {
-    "folder": "c:\temp\",
+    "index_folder": "c:\temp\photos\index",
     "files": {
         "thumbnails_to_do": "thumbnails_to_do.txt",
         "done_list": "done_list.txt",
@@ -13,6 +13,8 @@ settings = {
         "mkdir_to_do": "mk_dir_to_do.bat",
         "server_file_list": "server_files.txt"
     },
-    "root_folder": "I:\Photos"
+    "drive": "I:",
+    "root_folder": "\Photos",
+    "temp_folder": "c:\temp"
 };
 </cfscript>

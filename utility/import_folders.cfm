@@ -2,14 +2,14 @@
 
 <cfscript>
 // Open file with list of folders
-folders = FileOpen("#settings.folder##settings.files.folders_list#", "read");
+folders = FileOpen("#settings.temp_folder#\#settings.files.folders_list#", "read");
 
 // For each line in file, check and if necessary insert folder path
 while (not fileiseof(folders)) {
     line = FileReadLine(folders);
     if (len(line) gt 2 ) {
-        // Remove leading drive and : to find path
-        path = right(line, len(line) -2);
+        // Remove leading drive and root folder
+        path = right(line, len(line) - len(settings.drive) - len(settings.root_folder));
 
         // Insert if path not found in photos.folders.path
         query = queryexecute(

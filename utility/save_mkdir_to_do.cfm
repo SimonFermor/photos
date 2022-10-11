@@ -21,7 +21,7 @@
     output_file = FileOpen("#bat_file_path#", "write");
 
     for (row in image_folders) {
-        fileWriteLine(output_file, "mkdir #settings.root_folder##image_folders.thumbnails_folder_path#");
+        fileWriteLine(output_file, "mkdir #settings.drive##settings.root_folder##image_folders.thumbnails_folder_path#");
     }
 
     fileWriteLine(output_file, "pause");

@@ -43,7 +43,7 @@ remote any function write_all_collection_pages() {
 
 // Write one collection index pages
 remote any function write_collection_pages(collection_id) {
-    write_html_header("c:\temp\photos\site\collections\index.html");
+    write_html_header("#settings.index_folder#\collections\index.html");
 
     // Photo files for one collection - using date range as criteria
     files = queryexecute(
@@ -55,7 +55,7 @@ remote any function write_collection_pages(collection_id) {
         {collection_id = {value="#collection_id#"}}, qoptions);
 
     // Start the collection HTML file
-    file_path = "c:\temp\photos\site\collections\" & collection_id & ".html";
+    file_path = "#settings.index_folder#\collections\" & collection_id & ".html";
     write_html_header(file_path);
 
     index_file = FileOpen("#file_path#", "append");
@@ -79,7 +79,7 @@ remote any function write_owner_index_pages(required string owner_name) {
     var file_path = "";
 
     // Create file and write html header
-    var main_index_path = "c:\temp\photos\site\#owner_name#\index.html";
+    var main_index_path = "#settings.index_folder#\#owner_name#\index.html";
     write_html_header(main_index_path);
 
     // Open file for adding links
@@ -102,7 +102,7 @@ remote any function write_owner_index_pages(required string owner_name) {
                 >#left(folder_path, len(folder_path) - 11)#</a></li>");
 
             // Open folder index file and write header
-            var file_path = "c:\temp\photos\site\#owner_name#\folder_#folder.folder_id#.html";
+            var file_path = "#settings.index_folder#\#owner_name#\folder_#folder.folder_id#.html";
             write_html_header(file_path);
             
             index_file = FileOpen("#file_path#", "append");

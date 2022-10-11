@@ -28,7 +28,8 @@
                 name = left(name, len(name) - len(extension) - 1);
 
                 // Remove leading drive letter and filename from end
-                folder_path = mid(path, 3, len(path) - len(name) - len(extension) - 4);
+                base_length = len(settings.drive) + len(settings.root_folder);
+                folder_path = mid(path, base_length, len(path) - len(name) - len(extension) - 1 - base_length);
 
                 // Insert new file details
                 query = queryexecute(
