@@ -2,7 +2,7 @@ body{
     font-family: sans-serif;
 }
 
-.gallery ul {
+.gallery {
     display: flex;
     flex-wrap: wrap;
     margin: 2vmin;
