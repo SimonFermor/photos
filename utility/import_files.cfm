@@ -5,7 +5,7 @@
     Read each line in the files.txt file and add a record in the table files_import 
 --->
 <cfscript>
-    files = FileOpen("#settings.folder##settings.files.files_list#", "read");
+    files = FileOpen("#settings.temp_folder#\#settings.files.files_list#", "read");
     counter = 0;
     //qoptions = { result="result", datasource="recipes"};
     // Truncate table used for import
@@ -28,8 +28,8 @@
                 name = left(name, len(name) - len(extension) - 1);
 
                 // Remove leading drive letter and filename from end
-                base_length = len(settings.drive) + len(settings.root_folder);
-                folder_path = mid(path, base_length, len(path) - len(name) - len(extension) - 1 - base_length);
+                base_length = len(settings.drive) + len(settings.root_folder) + 2;
+                folder_path = mid(path, base_length, len(path) - len(name) - len(extension) - base_length);
 
                 // Insert new file details
                 query = queryexecute(

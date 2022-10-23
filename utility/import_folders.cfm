@@ -9,7 +9,7 @@ while (not fileiseof(folders)) {
     line = FileReadLine(folders);
     if (len(line) gt 2 ) {
         // Remove leading drive and root folder
-        path = right(line, len(line) - len(settings.drive) - len(settings.root_folder));
+        path = right(line, len(line) - len(settings.drive) - len(settings.root_folder) - 1);
 
         // Insert if path not found in photos.folders.path
         query = queryexecute(
