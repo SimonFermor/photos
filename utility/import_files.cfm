@@ -7,8 +7,8 @@
 <cfscript>
     files = FileOpen("#settings.temp_folder#\#settings.files.files_list#", "read");
     counter = 0;
-    //qoptions = { result="result", datasource="recipes"};
-    // Truncate table used for import
+    
+    // Truncate temporary table used for import
     queryexecute("truncate table photos.files_import;", [], qoptions);
 
     // Import all files into files_import table
@@ -29,7 +29,7 @@
 
                 // Remove leading drive letter and filename from end
                 base_length = len(settings.drive) + len(settings.root_folder) + 2;
-                folder_path = mid(path, base_length, len(path) - len(name) - len(extension) - base_length);
+                folder_path = mid(path, base_length, len(path) - len(name) - len(extension) - base_length - 1);
 
                 // Insert new file details
                 query = queryexecute(

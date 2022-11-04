@@ -7,10 +7,11 @@ folders = FileOpen("#settings.temp_folder#\#settings.files.folders_list#", "read
 // For each line in file, check and if necessary insert folder path
 while (not fileiseof(folders)) {
     line = FileReadLine(folders);
-    if (len(line) gt 2 ) {
-        // Remove leading drive and root folder
-        path = right(line, len(line) - len(settings.drive) - len(settings.root_folder) - 1);
 
+    // Remove leading drive and root folder
+    path = right(line, len(line) - len(settings.drive) - len(settings.root_folder) - 1);
+
+    if (len(path) gt 2 ) {
         // Insert if path not found in photos.folders.path
         query = queryexecute(
             "insert into photos.folders 

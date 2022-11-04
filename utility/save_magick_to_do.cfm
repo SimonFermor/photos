@@ -26,7 +26,7 @@
         limit 5000;",
         [], qoptions);
 
-    output_file = FileOpen("#settings.folder##settings.files.magick_to_do#", "write");
+    output_file = FileOpen("#settings.temp_folder#\#settings.files.magick_to_do#", "write");
     for (row in image_files) {
         file_base_path = "#settings.drive##settings.root_folder##image_files.folder_path#\#image_files.name#";
         fileWriteLine(output_file, "magick #file_base_path#.#image_files.extension# #file_base_path#.jpg");

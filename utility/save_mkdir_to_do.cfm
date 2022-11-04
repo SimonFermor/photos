@@ -2,7 +2,7 @@
 <cfinclude template="settings.inc">
 
 <cfscript>
-    bat_file_path = "#settings.folder##settings.files.mkdir_to_do#";
+    bat_file_path = "#settings.temp_folder#\#settings.files.mkdir_to_do#";
 
     // Find paths for folder where there are image files and no corresponding thumbnails folder
     image_folders = queryexecute(
