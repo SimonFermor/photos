@@ -6,7 +6,8 @@
 <cfquery name="folders" datasource="recipes">
   select id, path
   from photos.folders
-  where name is null;
+  where name is null
+  and length(path) > 1;
 </cfquery>
 
 <cfscript>
